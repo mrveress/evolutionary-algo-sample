@@ -1,0 +1,115 @@
+<!--
+ - Created by adampetrovich on 7/8/23.
+ -->
+
+<!-- Backpack Task Brutforce -->
+<template>
+    <div class="slds-box slds-color__background_gray-1">
+        <h1 class="slds-text-heading_medium">Brutforce</h1>
+
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_1-of-3 slds-p-horizontal_small slds-text-align_right">
+                <strong>Status</strong>
+            </div>
+            <div class="slds-col slds-size_2-of-3 slds-p-horizontal_small slds-text-align_left">
+                {status}
+            </div>
+        </div>
+
+        <template if:true={started}>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-3 slds-p-horizontal_small slds-text-align_right">
+                    <strong>Checks Count</strong>
+                </div>
+                <div class="slds-col slds-size_2-of-3 slds-p-horizontal_small slds-text-align_left">
+                    {checksCount}
+                </div>
+            </div>
+
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-3 slds-p-horizontal_small slds-text-align_right">
+                    <strong>Checked Count</strong>
+                </div>
+                <div class="slds-col slds-size_2-of-3 slds-p-horizontal_small slds-text-align_left">
+                    {checked}
+                </div>
+            </div>
+
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-3 slds-p-horizontal_small slds-text-align_right">
+                    <strong>Started At</strong>
+                </div>
+                <div class="slds-col slds-size_2-of-3 slds-p-horizontal_small slds-text-align_left">
+                    {startedOutput}
+                </div>
+            </div>
+
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-3 slds-p-horizontal_small slds-text-align_right">
+                    <strong>Time Spent</strong>
+                </div>
+                <div class="slds-col slds-size_2-of-3 slds-p-horizontal_small slds-text-align_left">
+                    {spentOutput}
+                </div>
+            </div>
+
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-3 slds-p-horizontal_small slds-text-align_right">
+                    <strong>Time Left</strong>
+                </div>
+                <div class="slds-col slds-size_2-of-3 slds-p-horizontal_small slds-text-align_left">
+                    {leftOutput}
+                </div>
+            </div>
+
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-3 slds-p-horizontal_small slds-text-align_right">
+                    <strong>Best Option</strong>
+                </div>
+                <div class="slds-col slds-size_2-of-3 slds-p-horizontal_small slds-text-align_left">
+                    <div if:true={best}>
+                        <div class="slds-grid slds-grid_pull-padded slds-m-top_medium slds-m-bottom_small slds-border_bottom">
+                            <div class="slds-col slds-size_1-of-6 slds-p-horizontal_small">ID</div>
+                            <div class="slds-col slds-size_3-of-6 slds-p-horizontal_small">Name</div>
+                            <div class="slds-col slds-size_1-of-6 slds-p-horizontal_small">Weight</div>
+                            <div class="slds-col slds-size_1-of-6 slds-p-horizontal_small">Price</div>
+                        </div>
+                        <div
+                                class="slds-grid slds-grid_pull-padded"
+                                for:each={best.items} for:item="item"
+                                key={item.id}
+                                data-item-id={item.id}
+                        >
+                            <div class="slds-col slds-size_1-of-6 slds-p-horizontal_small" data-param="id">{item.id}</div>
+                            <div class="slds-col slds-size_3-of-6 slds-p-horizontal_small" data-param="name">{item.name}</div>
+                            <div class="slds-col slds-size_1-of-6 slds-p-horizontal_small" data-param="weight">{item.weight}</div>
+                            <div class="slds-col slds-size_1-of-6 slds-p-horizontal_small" data-param="price">{item.price}</div>
+                        </div>
+
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-3 slds-p-horizontal_small slds-text-align_right">
+                                <strong>Total Weight</strong>
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-horizontal_small slds-text-align_left">
+                                {best.sumWeight}
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-3 slds-p-horizontal_small slds-text-align_right">
+                                <strong>Total Price</strong>
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-horizontal_small slds-text-align_left">
+                                {best.sumPrice}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <div class="slds-m-top_medium">
+            <lightning-button if:false={isInProgress} label="Run" variant="brand" stretch="true" onclick={run}></lightning-button>
+            <lightning-button if:true={isInProgress} label="Stop" variant="destructive" stretch="true" onclick={stop}></lightning-button>
+        </div>
+    </div>
+</template>
